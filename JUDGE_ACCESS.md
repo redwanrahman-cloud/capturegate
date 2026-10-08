@@ -2,6 +2,12 @@
 
 `infra-judges.json` is an optional deployment, separate from the IAM-only template. Deployment status must be confirmed with a current receipt; code alone does not prove a running endpoint.
 
+## Verified deployment — 8 October 2026
+
+Endpoint: https://yq4tqjkm2f.execute-api.us-east-1.amazonaws.com
+
+Live checks confirmed 401 for unauthenticated root, assets, health and analysis routes, and for a wrong password. Correct credentials loaded byte-matched UI assets and processed clean and missing-page fictional fixtures with `review_ready` and `retake` respectively. Direct Function URL authentication remains AWS_IAM. The lifetime allowance is 1,000 total analysis attempts, including verification attempts; expiry is 11 November 2026 at 00:00 UTC. Password delivery in the competition portal remains pending verification of a judges-only field. This is not a submission receipt.
+
 - Every route requires HTTPS Basic authentication in judge mode. Username is `judges`; generate a high-entropy random password, never reuse a personal password.
 - Set `CAPTUREGATE_JUDGE_AUTH=required`, the password's SHA-256 and expiry through the template parameters. CloudFormation masks the hash parameter; plaintext must not enter source control, public descriptions, screenshots, logs or URL query strings.
 - Invalid credentials return401, missing configuration503, and expired access403. Authentication runs before analysis and allowance consumption. An API Gateway request without configured judge auth fails closed.

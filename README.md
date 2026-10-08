@@ -24,7 +24,7 @@ node --test test_handoff_benchmark.cjs
 python evaluate.py
 ```
 
-67 Python tests passed in the Linux container, 46 controller tests locally and seven synthetic Lambda checks. Synthetic checks and reused development photos are not held-out accuracy or measured human benefit.
+75 Python tests passed in the Linux container, with 46 controller tests previously passing locally and seven synthetic Lambda checks. Synthetic checks and reused development photos are not held-out accuracy or measured human benefit.
 
 ## Architecture
 ```mermaid
@@ -40,7 +40,7 @@ flowchart LR
  I[Private AWS Lambda / ECR container] --> B
 ```
 
-The local browser uses the local server. AWS runs the same service and performs actual image analysis. The deployed pilot is authenticated, not publicly accessible; judge screen-share arrangement remains pending. See [technical report](TECHNICAL_REPORT.md) and [deployment](DEPLOYMENT.md).
+The local browser uses the local server. AWS runs the same service and performs actual image analysis. A [password-protected judge demo](https://yq4tqjkm2f.execute-api.us-east-1.amazonaws.com) was verified on 8 October 2026. Credentials are provided privately to judges, not in this repository. Access expires 11 November 2026 at 00:00 UTC and shares a lifetime allowance of 1,000 analysis attempts. See [judge access](JUDGE_ACCESS.md), [technical report](TECHNICAL_REPORT.md) and [deployment](DEPLOYMENT.md). Competition submission and video publication are separate, still-pending steps.
 
 ## Limits and licenses
 Cleanup cannot recover missing text, severe blur, prove completeness or certify authenticity. Weak edges and nested rectangles remain difficult. No OCR or generative image model is used. User savings, OCR improvement and physical-touch performance are unmeasured. Local processing remains local; remote deployment uploads images to that service. Application non-persistence is not a compliance guarantee. Original photos are excluded from handoff ZIPs.
