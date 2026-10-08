@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1215"><title>CaptureGate — Document Capture Studio</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<a class="skip" href="#workspace">Skip to photo check</a>
+<div class="app-shell">
+<header class="topbar">
+<a class="brand" href="/" aria-label="CaptureGate home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5"/><path d="m8 12 3 3 5-6"/></svg></span>Capture<span>Gate</span><span class="brand-label">STUDIO</span></a>
+<nav aria-label="Page"><a class="nav-active" href="#workspace">Capture workspace</a><a href="#how">The workflow</a></nav>
+<div class="header-actions"><span class="local"><i></i> Local processing</span><button id="theme-toggle" class="icon-button" aria-label="Switch to light theme" title="Switch theme"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button></div>
+</header>
+<main>
+<section class="hero">
+<div class="hero-copy"><p class="eyebrow"><span></span> THE CAPTURE BEFORE THE WORKFLOW</p><h1>Capture. Inspect.<br><span>Keep it moving.</span></h1><p class="intro">Find the page. Catch capture problems. Create an aligned copy for a person to review—before the document reaches OCR.</p><div class="hero-actions"><a class="hero-cta" href="#workspace">Open capture studio <span aria-hidden="true">↗</span></a><span class="hero-sub">OpenCV 5 <b>•</b> No model API fees</span></div></div>
+<aside class="hero-visual" aria-label="Automatic page detection and human review workflow"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="floating-label label-top"><span class="mini-dot"></span> AUTOMATIC PAGE DETECTION</div><div class="hero-document" aria-hidden="true"><div class="document-heading"></div><span></span><span></span><span></span><div class="document-block"></div><span></span><span></span></div><div class="hero-outline" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="floating-label label-bottom"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg> HUMAN REVIEW REMAINS</div><span class="visual-caption">Find → check → align → review</span></aside>
+</section>
+<section id="workspace" class="workspace" aria-label="Document quality workspace">
+<div class="workspace-heading"><div><p class="eyebrow">YOUR CAPTURE STUDIO</p><h2>One photo. A clear next step.</h2></div><span id="session-count" class="session">Session · 0 checks</span></div>
+<div class="layout">
+<section class="input-panel">
+<div class="panel-head"><span class="step">01</span><h3>Add a capture</h3><span class="panel-label">INPUT</span></div><p class="muted">One bright page on a darker surface.<br>Keep all four corners in view.</p>
+<label id="drop-zone" class="upload" for="file"><span class="upload-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 16V4m-4 4 4-4 4 4M4 15v5h16v-5"/></svg></span><img id="selected-preview" class="selected-preview" alt="Selected document photo" hidden><strong>Drop a document here</strong><span>or click to browse your files</span><span class="file-formats">PNG / JPEG <b>4 MB MAX</b></span><input id="file" type="file" accept="image/png,image/jpeg" aria-label="Choose a document photo"></label>
+<p id="file-name" class="file-name">No photo selected</p><button id="analyze" class="primary" disabled>Check photo <span aria-hidden="true">↗</span></button>
+<button id="input-adjust" class="text-button" disabled>Set borders before checking</button>
+<p class="privacy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4 8 9 8 9s8-5 8-9V6Z"/><path d="m8 12 3 3 5-6"/></svg><span>Processed locally. Use fictional documents, not private records.</span></p>
+<div class="example-section"><div class="section-label"><h4>Try a scenario</h4><span>GENERATED</span></div>
+<div class="examples">
+<button data-fixture="clean"><span class="scenario-icon clean-icon" aria-hidden="true">✓</span><span>Clear page</span><span class="scenario-arrow" aria-hidden="true">↗</span></button>
+<button data-fixture="blur"><span class="scenario-icon" aria-hidden="true">≋</span><span>Blurred text</span><span class="scenario-arrow" aria-hidden="true">↗</span></button>
+<button data-fixture="clipped"><span class="scenario-icon" aria-hidden="true">⌗</span><span>Cut-off edge</span><span class="scenario-arrow" aria-hidden="true">↗</span></button>
+<button data-fixture="glare"><span class="scenario-icon" aria-hidden="true">☼</span><span>Bright patch</span><span class="scenario-arrow" aria-hidden="true">↗</span></button>
+<button data-fixture="blank"><span class="scenario-icon" aria-hidden="true">▱</span><span>Blank page</span><span class="scenario-arrow" aria-hidden="true">↗</span></button>
+<button data-fixture="missing"><span class="scenario-icon" aria-hidden="true">−</span><span>No page</span><span class="scenario-arrow" aria-hidden="true">↗</span></button>
+<button data-fixture="inner_table"><span class="scenario-icon" aria-hidden="true">▦</span><span>Inner-table trap</span><span class="scenario-arrow" aria-hidden="true">↗</span></button>
+</div></div><button id="clear" class="text-button">↻ Clear session</button>
+</section>
+<section class="result-panel" aria-labelledby="result-heading">
+<div class="panel-head"><span class="step">02</span><h3 id="result-heading">Inspect &amp; hand off</h3><span id="source-label" class="source" hidden></span><span class="panel-label result-label">OUTPUT</span></div>
+<div id="status-card" class="status-card" data-state="idle"><span id="status-symbol" aria-hidden="true">◎</span><div><p id="status" role="status" aria-live="polite">Ready when you are</p><p id="status-detail">Add a photo or explore a scenario to start your check.</p></div></div>
+<div id="quality-grid" class="quality-grid" hidden><div><span><i></i> Page boundary</span><strong id="framing-state">—</strong></div><div><span><i></i> Text detail</span><strong id="detail-state">—</strong></div><div><span><i></i> Bright regions</span><strong id="light-state">—</strong></div></div>
+<section id="border-editor" class="border-editor" aria-labelledby="border-heading" hidden>
+<div class="section-label"><h3 id="border-heading">Set the page borders</h3><span>YOUR CORNERS</span></div>
+<p class="muted">Drag the four numbered corners onto the paper edges. Or focus a corner and use arrow keys; Shift moves faster. Keep every needed line inside.</p>
+<div class="border-canvas"><div id="border-stage" class="border-stage"><img id="border-image" alt="Original photo with editable crop corners" draggable="false"><svg class="border-overlay" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon id="border-outline" points="0,0 100,0 100,100 0,100"></polygon></svg><button id="border-0" class="border-handle" aria-label="Corner 1, top left. Use arrow keys to adjust.">1</button><button id="border-1" class="border-handle" aria-label="Corner 2, top right. Use arrow keys to adjust.">2</button><button id="border-2" class="border-handle" aria-label="Corner 3, bottom right. Use arrow keys to adjust.">3</button><button id="border-3" class="border-handle" aria-label="Corner 4, bottom left. Use arrow keys to adjust.">4</button></div></div>
+<svg id="border-loss-template" hidden aria-hidden="true"><path id="border-excluded" fill="rgba(255,130,35,.48)" fill-rule="evenodd"></path></svg>
+<p class="caption">Orange shading shows what this crop removes. Check every required signature, number and line before applying.</p>
+<p id="border-status" class="caption" role="status">Crop preview only. Nothing is applied yet.</p>
+<div class="recovery-options"><button id="border-apply" class="secondary">Apply borders &amp; check</button><button id="border-reset" class="secondary subtle">Reset to full photo</button><button id="border-cancel" class="secondary subtle">Use automatic edges</button></div>
+</section>
+<div id="empty" class="empty"><div class="scan-corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="scan-line" aria-hidden="true"></div><div class="paper" aria-hidden="true"><span></span><span></span><span></span><span></span><b>+</b></div><p>Your document, in focus.</p><span>The page preview and next-step guidance appear here.</span><span class="empty-hint">DETECT <i>→</i> INSPECT <i>→</i> ALIGN</span></div>
+<div id="preview-area" hidden><div id="retake-banner" class="retake-banner" role="alert" hidden><span class="retake-symbol" aria-hidden="true">↻</span><div><strong>RETAKE REQUIRED</strong><p>Not usable for handoff. This photo failed the capture checks.</p><span>Retake it using the guidance below. Downloads are locked.</span></div></div><div class="preview-toolbar"><div class="view-toggle" aria-label="Preview view"><button id="view-original" aria-pressed="true">Detected page</button><button id="view-aligned" aria-pressed="false" disabled>Aligned page</button></div><span id="timing"></span></div><div class="preview-frame"><span class="canvas-tag" aria-hidden="true">CAPTURE VIEW</span><span class="preview-rejection">RETAKE · NOT READY</span><img id="preview" alt="Photo with automatically detected document boundary"></div><p id="preview-caption" class="caption">Outline shows the detected boundary. Check it against the actual paper.</p></div>
+<section id="recovery-panel" class="recovery-panel" aria-label="Cleanup and human review" hidden>
+<div class="section-label"><h3>Try the cleanup. You decide.</h3><span>HUMAN REVIEW</span></div>
+<p id="recovery-note" class="muted"></p>
+<p id="recovery-crop-status" class="caption" role="status"></p>
+<div class="recovery-compare"><figure><figcaption>Original capture</figcaption><div id="recovery-original-frame" class="recovery-image"><div id="recovery-original-stage" class="recovery-stage"><img id="recovery-original" alt="Original capture for comparison"></div></div></figure><figure><figcaption>Proposed version · <span id="recovery-variant-label"></span></figcaption><div id="recovery-preview-frame" class="recovery-image"><div id="recovery-preview-stage" class="recovery-stage"><img id="recovery-preview" alt="Cleanup proposal requiring human review"></div></div></figure></div>
+<svg id="crop-loss-overlay" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" hidden><path id="crop-loss-path" fill="rgba(255,130,35,.48)" fill-rule="evenodd"></path></svg>
+<p id="crop-loss-note" class="caption"></p>
+<div class="recovery-options" role="group" aria-label="Page crop"><button id="recovery-adjust" class="secondary subtle">Adjust borders</button><button id="recovery-undo" class="secondary subtle">Undo auto crop</button><button id="recovery-restore" class="secondary subtle" hidden>Restore auto crop</button></div>
+<div class="recovery-options" role="group" aria-label="Cleanup style"><button id="recovery-natural" class="secondary subtle" aria-pressed="true">Natural color</button><button id="recovery-contrast" class="secondary subtle" aria-pressed="false">Contrast cleanup</button><button id="recovery-bw" class="secondary subtle" aria-pressed="false">Black &amp; white</button><button id="recovery-rotate" class="secondary subtle">Rotate 90°</button></div>
+<label class="recovery-zoom">Inspect detail <input id="recovery-zoom" type="range" min="1" max="3" step="0.25" value="1" aria-label="Preview zoom"><span id="recovery-zoom-label">1×</span></label>
+<label class="recovery-consent"><input id="recovery-sharpen" type="checkbox"> Sharpen edges gently</label>
+<p class="caption">Optional sharpening changes local contrast, not the amount of captured detail. It cannot restore missing text or make a blurred photo reliable.</p>
+<p class="caption">Zoom helps you inspect existing pixels; it does not add detail. Color cleanup can change appearance. Check every needed line against the original.</p>
+<label class="recovery-consent"><input id="recovery-confirm" type="checkbox"> I inspected this exact version. The content I need is readable and included. I understand that missing content cannot be recovered and this does not mean the automatic checks passed.</label>
+<div class="recovery-options"><button id="recovery-accept" class="secondary" disabled>Accept this version for my use</button><button id="recovery-reject" class="secondary subtle">Not acceptable — I’ll retake</button></div>
+<p id="recovery-review-status" role="status" class="caption">Review required. Cleanup downloads are locked.</p>
+<div id="recovery-actions" class="actions" hidden><button id="download-recovered" class="secondary" disabled>Save reviewed version ↓</button><button id="download-review" class="secondary subtle" disabled>Export human-review record ↓</button></div>
+<button id="download-bundle" class="secondary" disabled>Download matched image + review ZIP ↓</button>
+</section>
+<div id="reasons"></div><div id="comparison" class="comparison" hidden></div>
+<p id="export-gate" class="caption" role="status" hidden></p>
+<div id="actions" class="actions" hidden><button id="download-crop" class="secondary" hidden disabled>Save aligned page ↓</button><button id="download" class="secondary subtle" disabled>Export passed check record ↓</button></div>
+<details id="details" hidden><summary>Behind the check <span>POLICY &amp; MEASUREMENTS</span></summary><p class="muted">Detail and bright-pixel measurements are heuristic signals—not proof of readability or authenticity.</p><pre id="metrics"></pre></details>
+</section></div>
+<div class="workspace-foot"><span><i></i> Images stay in browser/server memory</span><span>Geometric guidance. Human judgment.</span></div>
+</section>
+<section id="how" class="how"><div class="how-heading"><p class="eyebrow">SMALL CHECK. USEFUL HANDOFF.</p><h2>Built around your next move.</h2></div><ol><li><span>01</span><div><strong>Find the page.</strong><p>Automatic geometry finds a candidate boundary. Check it against the actual paper.</p></div></li><li><span>02</span><div><strong>Fix the capture.</strong><p>Clear advice for framing, low detail or bright regions. Retake while the page is still there.</p></div></li><li><span>03</span><div><strong>Hand off for review.</strong><p>Export an aligned page and a traceable record. A person confirms every edge and line.</p></div></li></ol></section>
+<footer><a class="brand" href="/" aria-label="CaptureGate home">Capture<span>Gate</span></a><p>Prototype. Detection can miss defects or flag clean pages. Real-photo accuracy and OCR benefit remain unverified. Examples are generated.</p><span>REDWAN RAHMAN <b>·</b> CRAB CAPITAL / 2026</span></footer>
+</main></div><script src="/app.js" defer></script>
+</body></html>
