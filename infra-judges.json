@@ -1,0 +1,254 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "CaptureGate password-protected expiring judge demo; direct URL remains AWS_IAM.",
+  "Parameters": {
+    "ImageUri": {
+      "Type": "String",
+      "Description": "Existing private ECR image URI built for linux/amd64"
+    },
+    "JudgePasswordHash": {
+      "Type": "String",
+      "NoEcho": true,
+      "AllowedPattern": "[0-9a-f]{64}",
+      "Description": "SHA-256 of a freshly generated high-entropy judge password; never use a personal password."
+    },
+    "JudgeExpires": {
+      "Type": "String",
+      "AllowedPattern": "[0-9]+",
+      "Default": "1794355200",
+      "Description": "Expiry epoch seconds. Default 11 November 2026 00:00 UTC."
+    }
+  },
+  "Resources": {
+    "Role": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "MinimalLogs",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "Logs",
+                      "Arn"
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "PolicyName": "DemoAllowanceOnly",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:UpdateItem"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "Allowance",
+                      "Arn"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "Logs": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "RetentionInDays": 3
+      }
+    },
+    "Function": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "PackageType": "Image",
+        "Code": {
+          "ImageUri": {
+            "Ref": "ImageUri"
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "Role",
+            "Arn"
+          ]
+        },
+        "Architectures": [
+          "x86_64"
+        ],
+        "MemorySize": 1024,
+        "Timeout": 15,
+        "LoggingConfig": {
+          "LogGroup": {
+            "Ref": "Logs"
+          }
+        },
+        "Environment": {
+          "Variables": {
+            "OPENCV_IO_MAX_IMAGE_PIXELS": "16000000",
+            "CAPTUREGATE_ALLOWANCE_TABLE": {
+              "Ref": "Allowance"
+            },
+            "CAPTUREGATE_ANALYSIS_LIMIT": "1000",
+            "CAPTUREGATE_JUDGE_AUTH": "required",
+            "CAPTUREGATE_JUDGE_PASSWORD_SHA256": {
+              "Ref": "JudgePasswordHash"
+            },
+            "CAPTUREGATE_JUDGE_EXPIRES": {
+              "Ref": "JudgeExpires"
+            }
+          }
+        }
+      }
+    },
+    "Url": {
+      "Type": "AWS::Lambda::Url",
+      "Properties": {
+        "TargetFunctionArn": {
+          "Ref": "Function"
+        },
+        "AuthType": "AWS_IAM"
+      }
+    },
+    "Allowance": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "BillingMode": "PAY_PER_REQUEST",
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          }
+        ]
+      }
+    },
+    "DemoApi": {
+      "Type": "AWS::ApiGatewayV2::Api",
+      "Properties": {
+        "Name": "capturegate-judge-demo",
+        "ProtocolType": "HTTP"
+      }
+    },
+    "DemoIntegration": {
+      "Type": "AWS::ApiGatewayV2::Integration",
+      "Properties": {
+        "ApiId": {
+          "Ref": "DemoApi"
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": {
+          "Fn::GetAtt": [
+            "Function",
+            "Arn"
+          ]
+        },
+        "PayloadFormatVersion": "2.0",
+        "TimeoutInMillis": 16000
+      }
+    },
+    "DemoRoute": {
+      "Type": "AWS::ApiGatewayV2::Route",
+      "Properties": {
+        "ApiId": {
+          "Ref": "DemoApi"
+        },
+        "RouteKey": "$default",
+        "Target": {
+          "Fn::Join": [
+            "/",
+            [
+              "integrations",
+              {
+                "Ref": "DemoIntegration"
+              }
+            ]
+          ]
+        }
+      }
+    },
+    "DemoStage": {
+      "Type": "AWS::ApiGatewayV2::Stage",
+      "Properties": {
+        "ApiId": {
+          "Ref": "DemoApi"
+        },
+        "StageName": "$default",
+        "AutoDeploy": true,
+        "DefaultRouteSettings": {
+          "ThrottlingBurstLimit": 10,
+          "ThrottlingRateLimit": 1
+        }
+      }
+    },
+    "DemoInvoke": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "Function"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Sub": "arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${DemoApi}/*"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "FunctionName": {
+      "Value": {
+        "Ref": "Function"
+      }
+    },
+    "IamOnlyUrl": {
+      "Value": {
+        "Fn::GetAtt": [
+          "Url",
+          "FunctionUrl"
+        ]
+      }
+    },
+    "JudgeDemoUrl": {
+      "Value": {
+        "Fn::GetAtt": [
+          "DemoApi",
+          "ApiEndpoint"
+        ]
+      }
+    }
+  }
+}

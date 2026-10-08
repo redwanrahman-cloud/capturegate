@@ -12,6 +12,7 @@ from vision import inspect, fixture, POLICY
 from rectify import align_page
 from recovery import proposals
 from public_guard import consume
+from judge_auth import authorize
 
 ROOT = Path(__file__).resolve().parent
 MAX_FILE = 4_000_000
@@ -85,6 +86,12 @@ def handler(event,context):
     """Lambda Function URL v2 adapter. Template requires IAM authorization."""
     if not isinstance(event,dict):
         return {'statusCode':400,'body':'{"error":"Invalid event"}'}
+    denied=authorize(event)
+    if denied:
+        status,message=denied
+        headers={'Content-Type':'application/json','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}
+        if status==401:headers['WWW-Authenticate']='Basic realm="CaptureGate judges", charset="UTF-8"'
+        return {'statusCode':status,'headers':headers,'body':json.dumps({'error':message}),'isBase64Encoded':False}
     request_context=event.get('requestContext') or {}
     http=request_context.get('http') if isinstance(request_context,dict) else None
     method=http.get('method','GET') if isinstance(http,dict) else 'GET'

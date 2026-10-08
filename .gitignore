@@ -2,3 +2,9 @@
 __pycache__/
 *.pyc
 demo/
+judge-secret.json
+judge-parameters.json
+*PRIVATE*
+auth-event.json
+auth-response.json
+*-stack-id.txt
