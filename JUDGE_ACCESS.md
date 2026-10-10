@@ -1,12 +1,22 @@
 # Password-protected judge access
 
-`infra-judges.json` is an optional deployment, separate from the IAM-only template. Deployment status must be confirmed with a current receipt; code alone does not prove a running endpoint.
+The submitted browser demo uses the judge deployment described by `infra-judges.json`. `infra.json` is the earlier IAM-only alternative, not the submitted browser access arrangement. Code alone is not proof of deployment; dated HTTP checks and configuration evidence are distinguished below.
+
+## Submission and access verification — 10 October 2026
+
+Devpost submission 1228958 for [CaptureGate](https://devpost.com/software/capturegate) shows **Submitted, 5/5 steps done**. The additional-information page explicitly states that these fields are for judges and organizers and do not appear publicly unless noted. **Testing instructions** contains the demo URL and credentials; the stored password was compared privately with the working credential and matched. The **Working web endpoint** field contains the URL below. No password or password hash is included in this repository.
+
+Live recheck: unauthenticated root, JavaScript, health and analysis-route requests returned 401; wrong credentials returned 401. Authenticated health returned OpenCV 5.0.0 and policy `capturegate-v0.9-manual-borders`. Authenticated HTML, JavaScript and CSS returned 200 and matched source bytes. Two authenticated fictional analyses returned `review_ready` for clean and `retake` for missing page. These two calls consume allowance; no exhaustion test was performed. Current cloud configuration/digest requires a signed-in AWS console to reverify; see [audit](AUDIT_2026-10-10.md). No access settings were changed during this audit.
 
 ## Verified deployment — 8 October 2026
 
 Endpoint: https://yq4tqjkm2f.execute-api.us-east-1.amazonaws.com
 
-Live checks confirmed 401 for unauthenticated root, assets, health and analysis routes, and for a wrong password. Correct credentials loaded byte-matched UI assets and processed clean and missing-page fictional fixtures with `review_ready` and `retake` respectively. Direct Function URL authentication remains AWS_IAM. The lifetime allowance is 1,000 total analysis attempts, including verification attempts; expiry is 11 November 2026 at 00:00 UTC. Password delivery in the competition portal remains pending verification of a judges-only field. This is not a submission receipt.
+Historical deployment checks confirmed 401 for unauthenticated root, assets, health and analysis routes, and for a wrong password. Correct credentials loaded byte-matched JavaScript and processed clean and missing-page fictional fixtures with `review_ready` and `retake` respectively. The configuration receipt recorded direct Function URL authentication AWS_IAM, a lifetime allowance of 1,000 total analysis attempts including verification, and expiry 11 November 2026 at 00:00 UTC. Credential delivery was pending then; it is now verified above. This historical deployment receipt is not itself a competition submission receipt.
+
+## Reproduction and security contract
+
+The following are deployment instructions, not outstanding tasks for judges:
 
 - Every route requires HTTPS Basic authentication in judge mode. Username is `judges`; generate a high-entropy random password, never reuse a personal password.
 - Set `CAPTUREGATE_JUDGE_AUTH=required`, the password's SHA-256 and expiry through the template parameters. CloudFormation masks the hash parameter; plaintext must not enter source control, public descriptions, screenshots, logs or URL query strings.

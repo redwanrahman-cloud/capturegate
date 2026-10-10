@@ -1,0 +1,320 @@
+{
+  "kind": "procedural_regression_not_real_photo_accuracy",
+  "opencv": "5.0.0",
+  "cases": [
+    {
+      "case": "clean-0.75-0",
+      "expected": "review_ready",
+      "actual": "review_ready",
+      "reasons": [],
+      "passed": true
+    },
+    {
+      "case": "clean-0.75-10",
+      "expected": "review_ready",
+      "actual": "review_ready",
+      "reasons": [],
+      "passed": true
+    },
+    {
+      "case": "blur-0.75-0",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "blur_or_no_detail"
+      ],
+      "passed": true
+    },
+    {
+      "case": "blur-0.75-10",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "blur_or_no_detail"
+      ],
+      "passed": true
+    },
+    {
+      "case": "clipped-0.75-0",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "edge_clipped"
+      ],
+      "passed": true
+    },
+    {
+      "case": "clipped-0.75-10",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "edge_clipped"
+      ],
+      "passed": true
+    },
+    {
+      "case": "glare-0.75-0",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "bright_region_possible_glare"
+      ],
+      "passed": true
+    },
+    {
+      "case": "glare-0.75-10",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "bright_region_possible_glare"
+      ],
+      "passed": true
+    },
+    {
+      "case": "blank-0.75-0",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "blur_or_no_detail"
+      ],
+      "passed": true
+    },
+    {
+      "case": "blank-0.75-10",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "blur_or_no_detail"
+      ],
+      "passed": true
+    },
+    {
+      "case": "missing-0.75-0",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "document_not_found"
+      ],
+      "passed": true
+    },
+    {
+      "case": "missing-0.75-10",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "document_not_found"
+      ],
+      "passed": true
+    },
+    {
+      "case": "clean-1-0",
+      "expected": "review_ready",
+      "actual": "review_ready",
+      "reasons": [],
+      "passed": true
+    },
+    {
+      "case": "clean-1-10",
+      "expected": "review_ready",
+      "actual": "review_ready",
+      "reasons": [],
+      "passed": true
+    },
+    {
+      "case": "blur-1-0",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "blur_or_no_detail"
+      ],
+      "passed": true
+    },
+    {
+      "case": "blur-1-10",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "blur_or_no_detail"
+      ],
+      "passed": true
+    },
+    {
+      "case": "clipped-1-0",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "edge_clipped"
+      ],
+      "passed": true
+    },
+    {
+      "case": "clipped-1-10",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "edge_clipped"
+      ],
+      "passed": true
+    },
+    {
+      "case": "glare-1-0",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "bright_region_possible_glare"
+      ],
+      "passed": true
+    },
+    {
+      "case": "glare-1-10",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "bright_region_possible_glare"
+      ],
+      "passed": true
+    },
+    {
+      "case": "blank-1-0",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "blur_or_no_detail"
+      ],
+      "passed": true
+    },
+    {
+      "case": "blank-1-10",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "blur_or_no_detail"
+      ],
+      "passed": true
+    },
+    {
+      "case": "missing-1-0",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "document_not_found"
+      ],
+      "passed": true
+    },
+    {
+      "case": "missing-1-10",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "document_not_found"
+      ],
+      "passed": true
+    },
+    {
+      "case": "clean-1.25-0",
+      "expected": "review_ready",
+      "actual": "review_ready",
+      "reasons": [],
+      "passed": true
+    },
+    {
+      "case": "clean-1.25-10",
+      "expected": "review_ready",
+      "actual": "review_ready",
+      "reasons": [],
+      "passed": true
+    },
+    {
+      "case": "blur-1.25-0",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "blur_or_no_detail"
+      ],
+      "passed": true
+    },
+    {
+      "case": "blur-1.25-10",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "blur_or_no_detail"
+      ],
+      "passed": true
+    },
+    {
+      "case": "clipped-1.25-0",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "edge_clipped"
+      ],
+      "passed": true
+    },
+    {
+      "case": "clipped-1.25-10",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "edge_clipped"
+      ],
+      "passed": true
+    },
+    {
+      "case": "glare-1.25-0",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "bright_region_possible_glare"
+      ],
+      "passed": true
+    },
+    {
+      "case": "glare-1.25-10",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "bright_region_possible_glare"
+      ],
+      "passed": true
+    },
+    {
+      "case": "blank-1.25-0",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "blur_or_no_detail"
+      ],
+      "passed": true
+    },
+    {
+      "case": "blank-1.25-10",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "blur_or_no_detail"
+      ],
+      "passed": true
+    },
+    {
+      "case": "missing-1.25-0",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "document_not_found"
+      ],
+      "passed": true
+    },
+    {
+      "case": "missing-1.25-10",
+      "expected": "retake",
+      "actual": "retake",
+      "reasons": [
+        "document_not_found"
+      ],
+      "passed": true
+    }
+  ],
+  "passed": 36,
+  "total": 36
+}

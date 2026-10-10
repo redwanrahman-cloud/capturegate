@@ -1,0 +1,6 @@
+[ WARN:2@16.808] global grfmt_png.cpp:793 cv::PngDecoder::readFromStreamOrBuffer PNG input buffer is incomplete
+[ERROR:2@16.814] global grfmt_png.cpp:297 cv::PngDecoder::readHeader IHDR chunk shall be first. This data may be broken or malformed.
+----------------------------------------------------------------------
+Ran 75 tests in 21.588s
+
+OK

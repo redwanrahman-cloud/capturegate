@@ -1,0 +1,79 @@
+TAP version 13
+# {
+#   "kind": "synthetic_geometry_development_check",
+#   "cases": [
+#     {
+#       "case": "full page",
+#       "required_markers": 8,
+#       "markers_excluded": 0,
+#       "overlay_geometry_matches": true,
+#       "automatic_only_retains": 8,
+#       "manual_full_frame_retains": 8,
+#       "manual_full_frame_is_scripted_oracle": true
+#     },
+#     {
+#       "case": "left edge lost",
+#       "required_markers": 8,
+#       "markers_excluded": 3,
+#       "overlay_geometry_matches": true,
+#       "automatic_only_retains": 5,
+#       "manual_full_frame_retains": 8,
+#       "manual_full_frame_is_scripted_oracle": true
+#     },
+#     {
+#       "case": "right edge lost",
+#       "required_markers": 8,
+#       "markers_excluded": 3,
+#       "overlay_geometry_matches": true,
+#       "automatic_only_retains": 5,
+#       "manual_full_frame_retains": 8,
+#       "manual_full_frame_is_scripted_oracle": true
+#     },
+#     {
+#       "case": "top edge lost",
+#       "required_markers": 8,
+#       "markers_excluded": 3,
+#       "overlay_geometry_matches": true,
+#       "automatic_only_retains": 5,
+#       "manual_full_frame_retains": 8,
+#       "manual_full_frame_is_scripted_oracle": true
+#     },
+#     {
+#       "case": "bottom edge lost",
+#       "required_markers": 8,
+#       "markers_excluded": 3,
+#       "overlay_geometry_matches": true,
+#       "automatic_only_retains": 5,
+#       "manual_full_frame_retains": 8,
+#       "manual_full_frame_is_scripted_oracle": true
+#     },
+#     {
+#       "case": "inner rectangle only",
+#       "required_markers": 8,
+#       "markers_excluded": 8,
+#       "overlay_geometry_matches": true,
+#       "automatic_only_retains": 0,
+#       "manual_full_frame_retains": 8,
+#       "manual_full_frame_is_scripted_oracle": true
+#     }
+#   ],
+#   "human_users": 0,
+#   "overlay_does_not_change_crop_pixels": true,
+#   "human_error_reduction_measured": false,
+#   "interpretation": "The overlay exposes removed geometry. A scripted full-frame correction retains known marks, with or without the overlay. No measured advantage over ordinary manual correction is claimed."
+# }
+# Subtest: test_handoff_benchmark.cjs
+ok 1 - test_handoff_benchmark.cjs
+  ---
+  duration_ms: 56.33
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 61.9473
