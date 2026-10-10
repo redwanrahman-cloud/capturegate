@@ -2,7 +2,7 @@
 
 ## Submitted deployment — status audited 10 October 2026
 
-The competition entry includes https://yq4tqjkm2f.execute-api.us-east-1.amazonaws.com with credentials in private judge testing instructions. This is the API Gateway route from `infra-judges.json`, not an unauthenticated Function URL. HTTP access, authentication, exact UI assets and two synthetic analyses were reverified on 10 October. No redeployment or security-setting change was performed. Full live configuration and image digest were last recorded on 8 October; the current audit's AWS console session was expired. See [audit evidence](AUDIT_2026-10-10.md).
+The competition entry includes https://yq4tqjkm2f.execute-api.us-east-1.amazonaws.com with credentials in private judge testing instructions. This is the API Gateway route from `infra-judges.json`, not an unauthenticated Function URL. HTTP access, authentication, exact UI assets and two synthetic analyses were reverified on 10 October. After owner sign-in, read-only AWS checks confirmed the deployed image digest, Active/Successful Lambda, UPDATE_COMPLETE stack, IAM-only direct URL, required judge authentication, expiry, allowance and throttling. No redeployment or security-setting change was performed. See [audit evidence](AUDIT_2026-10-10.md).
 
 `infra-judges.json` defines HTTPS Basic authentication checked by Lambda before processing, expiry at 11 November 2026 00:00 UTC, a DynamoDB allowance of 1,000 total analysis attempts, and gateway throttling at 1 request/second with burst 10. The direct Function URL is AWS_IAM. Limits include verification attempts, do not guarantee a currency ceiling, and expiry does not stop ECR/log/storage charges. Never reset the allowance just to re-run tests. Preserve authentication, expiry and limits.
 
